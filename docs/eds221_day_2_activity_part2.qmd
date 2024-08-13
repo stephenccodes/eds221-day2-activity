@@ -1,0 +1,57 @@
+---
+title: "eds221_day_activity_part2"
+author: "Stephen Carroll"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(tidyverse)
+library(here)
+library(janitor)
+
+```
+
+```{r}
+mack_verts <- read.csv(here::here("data", "AS00601.csv"))
+                       
+mack_verts <- mack_verts |> clean_names()
+mack_verts
+```
+
+```{r}
+view(mack_verts$species)
+view(mack_verts$length1)
+view(mack_verts$weight)
+
+mc_wt_5 <- mack_verts$weight[5]
+mc_wt_5
+
+mc_length_8_20 <- mack_verts$length1[8:20]
+mc_length_8_20
+
+mc_dates <- mack_verts$sampledate
+
+mc_salamanders <-mack_verts %>% dplyr::filter(mack_verts$species == "DITE")
+
+mc_salamanders
+view(mc_salamanders)
+```
+
+```{r}
+ggplot(data = mc_salamanders, aes(
+  x = length1, 
+  y = weight ))+
+  geom_point(size =.3, alpha = 5, aes(color = weight),
+             show.legend = TRUE) +
+             scale_color_gradient(low = "yellow",
+                                  high = "red") +
+  theme_classic()
+```
+
+
+
+
