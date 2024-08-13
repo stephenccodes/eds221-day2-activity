@@ -1,0 +1,59 @@
+---
+title: "r_data_types"
+author: "Stephen Carroll"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+library(tidyverse)
+```
+
+```{r}
+vec_1 <- c(2, 5, 9, 10, 8, 12, 1, 0)
+
+class(vec_1)
+typeof(vec_1)
+
+vec_1_e3 <- vec_1[3]
+vec_1_e1 <- vec_1[1]
+vec_1_e3
+vec_1_e1
+
+vec_1_e5to7 <- vec_1[5:7]
+vec_1_e5to7
+
+vec_1_char <- as.character(vec_1) 
+class(vec_1_char)
+
+```
+
+```{r}
+vec_2 <- c(town = "Santa Barbara", location = "Rincon", swell = "south")
+vec_2
+
+class(vec_2)
+typeof(vec_2)
+
+length(vec_2)
+
+vec_2_e2 <- vec_2[2]
+vec_2_e2
+```
+
+```{r}
+df_1 <- data.frame(region = c("A", "B", "C", "D"),
+                   species = c("otter", "great white", "sea lion", "gray whale"),
+                   count = c(12, 2, 36, 6))
+
+df_1
+class(df_1)
+class(df_1$species)
+max_count <- max(df_1$count)
+max_count
+```
+
+
+
+
+
