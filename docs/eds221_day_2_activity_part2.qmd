@@ -19,38 +19,66 @@ library(janitor)
 mack_verts <- read.csv(here::here("data", "AS00601.csv"))
                        
 mack_verts <- mack_verts |> clean_names()
-mack_verts
+
 ```
 
 ```{r}
-view(mack_verts$species)
-view(mack_verts$length1)
-view(mack_verts$weight)
-
 mc_wt_5 <- mack_verts$weight[5]
-mc_wt_5
+
 
 mc_length_8_20 <- mack_verts$length1[8:20]
-mc_length_8_20
 
 mc_dates <- mack_verts$sampledate
 
-mc_salamanders <-mack_verts %>% dplyr::filter(mack_verts$species == "DITE")
+mc_salamanders <- mack_verts %>% dplyr::filter(mack_verts$species == "DITE")
 
-mc_salamanders
-view(mc_salamanders)
 ```
 
 ```{r}
 ggplot(data = mc_salamanders, aes(
   x = length1, 
   y = weight ))+
-  geom_point(size =.3, alpha = 5, aes(color = weight),
+  geom_point(size =.5, alpha = 5, aes(color = weight),
              show.legend = TRUE) +
              scale_color_gradient(low = "yellow",
                                   high = "red") +
-  theme_classic()
+  theme_classic()+
+  labs(title = "Salamander Length vs. Width", x = "Length (mm)", y = "Weight (grams)")
+
 ```
+
+```{r}
+ggsave(here::here("figs", "salamander_size.png"),
+       height = 5, width = 5)
+```
+
+
+```{r}
+view(mack_verts)
+
+mc_trout <- mack_verts %>% dplyr::filter(mack_verts$species == "ONCL")
+```
+
+```{r}
+ggplot(data = mc_trout, aes(x = length1,
+                            y = weight))+
+  geom_point(size = 0.5, alpha = .7, aes(color = reach),
+             show.legend = TRUE)+
+  scale_color_manual(values = c(L = "blue", 
+                       U = "red",
+                       M = "orange"))+
+  theme_classic()+
+  labs(title = "Trout Length vs. Weight", x = "Length(mm)", y = "Weight (grams)")+
+  facet_wrap(~reach)
+```
+
+```{r}
+ggsave(here::here("figs", "cutthroat_size.png"), 
+       height = 5, width = 5)
+```
+
+
+
 
 
 
